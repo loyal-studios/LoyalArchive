@@ -64,7 +64,7 @@ export function AddDialog({ initialType, onClose, onSaved }: { initialType?: Arc
     setError('');
     const tagList = tags.split(',').map((tag) => tag.trim().replace(/^#/, '')).filter(Boolean);
     const resolvedUses = type === 'link' ? usedFor.split(',').map((value) => value.trim()).filter(Boolean) : uses;
-    if (tagList.length < 1) { setError('Tambahkan minimal satu tag.'); return; }
+    if (type !== 'link' && tagList.length < 1) { setError('Tambahkan minimal satu tag.'); return; }
     if (type === 'asset' && !file) { setError('Gambar wajib dipilih.'); return; }
     if (type === 'asset' && resolvedUses.length < 1) { setError('Pilih minimal satu kegunaan.'); return; }
     if (type === 'prompt' && !content.trim()) { setError('Prompt siap salin wajib diisi.'); return; }
@@ -100,7 +100,7 @@ export function AddDialog({ initialType, onClose, onSaved }: { initialType?: Arc
         <div className="form-grid">
           <label className="field full"><span>{titleLabel}{type !== 'asset' && ' *'}</span><input autoFocus={type !== 'asset'} required={type !== 'asset'} value={title} onChange={(event) => setTitle(event.target.value)} placeholder={type === 'bagaimana' ? 'Bagaimana kalau...' : 'Tulis dengan jelas...'} /></label>
           <label className="field"><span>Kategori *</span><select required value={category} onChange={(event) => setCategory(event.target.value)}>{section.categories.map((option) => <option key={option}>{option}</option>)}</select></label>
-          <label className="field"><span>Tag * <small>pisahkan dengan koma</small></span><input required value={tags} onChange={(event) => setTags(event.target.value)} placeholder="vintage, sports, gothic" /></label>
+          <label className="field"><span>Tag {type !== 'link' && '*'} <small>{type === 'link' ? 'opsional' : 'pisahkan dengan koma'}</small></span><input required={type !== 'link'} value={tags} onChange={(event) => setTags(event.target.value)} placeholder={type === 'link' ? 'opsional' : 'vintage, sports, gothic'} /></label>
           {type === 'asset' && <label className="field"><span>Style *</span><select required value={style} onChange={(event) => setStyle(event.target.value)}>{['Vintage', 'Bootleg', 'Airbrush', 'Y2K', 'Punk / Grunge', 'Luxury / Editorial', 'Sports', 'Workwear', 'Gothic', 'Minimal', 'Lainnya'].map((option) => <option key={option}>{option}</option>)}</select></label>}
           {type === 'ide' && <fieldset className="field full"><legend>Prioritas *</legend><div className="segmented">{(['Tinggi', 'Sedang', 'Rendah'] as const).map((value) => <button type="button" key={value} className={priority === value ? 'active' : ''} onClick={() => setPriority(value)}>{value}</button>)}</div></fieldset>}
           {statuses.length > 0 && <label className="field"><span>Status *</span><select required value={status} onChange={(event) => setStatus(event.target.value)}>{statuses.map((option) => <option key={option}>{option}</option>)}</select></label>}
