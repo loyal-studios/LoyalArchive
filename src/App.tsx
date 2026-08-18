@@ -9,7 +9,8 @@ import { Shell } from './components/Shell';
 import { Home } from './components/Home';
 import { Library } from './components/Library';
 import { Brainstorm } from './components/Brainstorm';
-import { AddDialog, DetailDrawer, SearchDialog } from './components/Dialogs';
+import { AddDialog } from './components/AddDialog';
+import { DetailDrawer, SearchDialog } from './components/Dialogs';
 import { Settings } from './components/Settings';
 import { SECTION_MAP } from './config';
 
@@ -52,7 +53,13 @@ export default function App() {
 
   return <>
     <Shell route={route} navigate={navigate} onAdd={() => openAdd()} onSearch={() => setShowSearch(true)} demo={isDemoMode}>{content}</Shell>
-    {showAdd && <AddDialog initialType={addType} onClose={() => setShowAdd(false)} onSaved={(item) => { setShowAdd(false); setRefreshKey((value) => value + 1); notify(`${item.title || 'Referensi'} berhasil disimpan.`); if (route !== item.type) navigate(item.type); }} />}
+    {showAdd && <AddDialog initialType={addType} onClose={() => setShowAdd(false)} onSaved={(items, options) => {
+      if (options?.close !== false) setShowAdd(false);
+      setRefreshKey((value) => value + 1);
+      const first = items[0];
+      notify(options?.message || `${first?.title || 'Item'} berhasil disimpan.`);
+      if (first && route !== first.type) navigate(first.type);
+    }} />}
     {showSearch && <SearchDialog onClose={() => setShowSearch(false)} onOpen={setDetail} />}
     {detail && <DetailDrawer item={detail} onClose={() => setDetail(null)} onChanged={(item) => { setDetail(item); setRefreshKey((value) => value + 1); }} notify={notify} />}
     {toast && <div className="toast"><CheckCircle2 size={17}/>{toast}</div>}
