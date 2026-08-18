@@ -1,4 +1,4 @@
-const CACHE_NAME = 'loyal-archive-shell-v2';
+const CACHE_NAME = 'loyal-archive-shell-v3';
 const APP_SHELL = ['./', './manifest.webmanifest', './brand/favicon.svg'];
 
 self.addEventListener('install', (event) => {
