@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 130" role="img" aria-labelledby="title">
+  <title id="title">Loyal Archive</title>
+  <rect x="4" y="4" width="122" height="122" rx="20" fill="#050505" stroke="#fff" stroke-width="2"/>
+  <path d="M31 28v70h34" fill="none" stroke="#fff" stroke-width="11"/>
+  <path d="M54 98 79 30l27 68M66 72h28" fill="none" stroke="#fff" stroke-width="9"/>
+  <path d="m101 20 3 8 8 3-8 3-3 8-3-8-8-3 8-3z" fill="#fff"/>
+  <text x="158" y="68" fill="#fff" font-family="Arial Black,Arial,sans-serif" font-size="54" font-weight="900" letter-spacing="5">LOYAL ARCHIVE</text>
+  <text x="160" y="99" fill="#a3a3a3" font-family="Arial,sans-serif" font-size="13" font-weight="600" letter-spacing="7">CREATIVE MEMORY SYSTEM</text>
+</svg>
