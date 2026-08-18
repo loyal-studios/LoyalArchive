@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1200">
+  <rect width="900" height="1200" fill="#dedbd2"/><rect x="55" y="55" width="790" height="1090" fill="#171717"/>
+  <path d="M100 930 240 670l205-72 210 85 150 247z" fill="#d9d3c2"/><circle cx="270" cy="900" r="88" fill="#111" stroke="#eee" stroke-width="18"/><circle cx="650" cy="900" r="88" fill="#111" stroke="#eee" stroke-width="18"/>
+  <path d="M166 250h568M166 285h390" stroke="#f5f5f5" stroke-width="26"/><text x="120" y="480" fill="#f5f5f5" font-family="Arial Black" font-size="116" letter-spacing="4">LOYAL</text><text x="120" y="570" fill="#aaa" font-family="Arial" font-size="42" letter-spacing="18">RACING STUDY</text>
+</svg>

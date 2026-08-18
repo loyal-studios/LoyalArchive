@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 1100">
+  <rect width="1100" height="1100" fill="#080808"/><circle cx="550" cy="550" r="410" fill="none" stroke="#fff" stroke-width="7"/><circle cx="550" cy="550" r="350" fill="none" stroke="#777" stroke-width="2"/>
+  <path d="m550 160 82 250 260-65-207 169 162 211-245-92-52 272-52-272-245 92 162-211-207-169 260 65z" fill="none" stroke="#fff" stroke-width="19"/>
+  <text x="357" y="570" fill="#fff" font-family="Georgia" font-weight="bold" font-size="82" letter-spacing="20">CREST</text><text x="390" y="1020" fill="#999" font-family="Arial" font-size="20" letter-spacing="12">SYMBOL STUDY</text>
+</svg>

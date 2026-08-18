@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1350">
+  <filter id="n"><feTurbulence baseFrequency=".62" numOctaves="5" stitchTiles="stitch"/><feColorMatrix values="1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 .45 0"/></filter>
+  <rect width="900" height="1350" fill="#d6d0c2"/><rect width="900" height="1350" filter="url(#n)" opacity=".75"/><path d="M70 90h760v1170H70z" fill="none" stroke="#191919" stroke-width="9" stroke-dasharray="6 13"/>
+  <text x="120" y="620" fill="#111" font-family="Arial Black" font-size="104" transform="rotate(-8 120 620)">DISTRESSED</text><text x="245" y="750" fill="#111" font-family="Arial" font-size="34" letter-spacing="14">PAPER SCAN 03</text>
+</svg>
