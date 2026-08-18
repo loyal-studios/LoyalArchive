@@ -7,6 +7,23 @@ const DEMO_KEY = 'loyal_archive_demo_items';
 
 const wait = (ms = 180) => new Promise((resolve) => window.setTimeout(resolve, ms));
 
+export interface AssetBatchEntry {
+  clientId: string;
+  item: SaveInput;
+  image: File;
+}
+
+export interface AssetBatchFailure {
+  clientId: string;
+  fileName: string;
+  message: string;
+}
+
+export interface AssetBatchResult {
+  saved: ArchiveItem[];
+  failed: AssetBatchFailure[];
+}
+
 function getDemoItems(): ArchiveItem[] {
   const saved = localStorage.getItem(DEMO_KEY);
   if (!saved) return DEMO_ITEMS;
@@ -99,7 +116,12 @@ export async function saveItem(input: SaveInput, image?: File): Promise<ArchiveI
       reader.onerror = () => reject(new Error('Gambar tidak dapat dibaca.'));
       reader.readAsDataURL(image);
     });
-    upload = { name: image.name, mimeType: image.type, size: image.size, dataUrl };
+    const extensionMime: Record<string, string> = {
+      jpg: 'image/jpeg', jpeg: 'image/jpeg', png: 'image/png', webp: 'image/webp', gif: 'image/gif',
+      heic: 'image/heic', heif: 'image/heif', avif: 'image/avif',
+    };
+    const extension = image.name.split('.').pop()?.toLowerCase() || '';
+    upload = { name: image.name, mimeType: image.type || extensionMime[extension] || 'application/octet-stream', size: image.size, dataUrl };
   }
   if (!isDemoMode) return request<ArchiveItem>('save', { item: input, upload });
   await wait(240);
@@ -113,6 +135,32 @@ export async function saveItem(input: SaveInput, image?: File): Promise<ArchiveI
   const items = getDemoItems();
   saveDemoItems([item, ...items]);
   return item;
+}
+
+export async function saveAssetBatch(
+  entries: AssetBatchEntry[],
+  onProgress?: (completed: number, total: number, fileName: string) => void,
+): Promise<AssetBatchResult> {
+  const saved: ArchiveItem[] = [];
+  const failed: AssetBatchFailure[] = [];
+
+  // Sengaja berurutan: satu gambar per request menjaga penggunaan memori Safari/iPhone
+  // tetap rendah dan menghindari lock Drive/Sheets saling berebut di Apps Script.
+  for (let index = 0; index < entries.length; index += 1) {
+    const entry = entries[index];
+    try {
+      saved.push(await saveItem(entry.item, entry.image));
+    } catch (error) {
+      failed.push({
+        clientId: entry.clientId,
+        fileName: entry.image.name,
+        message: error instanceof Error ? error.message : 'Gambar gagal disimpan.',
+      });
+    }
+    onProgress?.(index + 1, entries.length, entry.image.name);
+  }
+
+  return { saved, failed };
 }
 
 export async function toggleFavorite(id: string, favorite: boolean) {
